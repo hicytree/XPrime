@@ -1,0 +1,13 @@
+{% extends 'twitclone/base.html' %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3 position-relative start-50 translate-middle-x w-50">
+        <h1 class="text-center">Welcome {{ name }}!</h1>
+        <label for="post-area" class="form-label"></label>
+        <textarea class="form-control" id="post-area" rows="3" placeholder="What's on your mind today?" maxlength="300"></textarea>
+        <button type="submit" class="btn btn-outline-light mt-2 float-end">Boop</button>
+    </div>
+</form>
+{% endblock %}
