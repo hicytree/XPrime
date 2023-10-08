@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-l^0ai7j2_0#murt#tn8s_%+e+h3m5lajcsybtd5kk76w9ryw6t
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -106,11 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 LOGIN_URL = '/account/login'
 LOGIN_REDIRECT_URL = 'home'

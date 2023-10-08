@@ -4,10 +4,24 @@
 <form action="" method="POST">
     {% csrf_token %}
     <div class="mb-3 position-relative start-50 translate-middle-x w-50">
-        <h1 class="text-center">Welcome {{ name }}!</h1>
-        <label for="post-area" class="form-label"></label>
-        <textarea class="form-control" id="post-area" rows="3" placeholder="What's on your mind today?" maxlength="300"></textarea>
-        <button type="submit" class="btn btn-outline-light mt-2 float-end">Boop</button>
+        <h1 class="text-center mb-3">Welcome {{ name }}!</h1>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-light float-end">Scream</button>
     </div>
 </form>
+<br/>
+<div class="mt-5 position-relative">
+    {% for post in posts %}
+        <div class="card start-50 translate-middle-x " style="width: 30rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ post.post }}</li>
+            </ul>
+            <div class="card-footer">
+                {{ post }}
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+</div>
+
 {% endblock %}
