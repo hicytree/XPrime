@@ -15,12 +15,15 @@ from .forms import PostCreateForm
 def home(request):
     form = PostCreateForm(request.POST or None)
     if request.method == "POST":
-        if form.is_valid():
-            meep = form.save(commit=False)
-            meep.poster = request.user.profile_user
-            meep.save() 
-            messages.success(request, ("Your scream has been heard!"))
-            return redirect("home")
+        if "post" in request.POST:
+            if form.is_valid():
+                scream = form.save(commit=False)
+                scream.poster = request.user.profile_user
+                scream.save() 
+                messages.success(request, ("Your scream has been heard!"))
+                return redirect("home")
+        if "like" in request.POST:
+            print(request.POST)
 
     context = { "name": request.user, "posts": Post.objects.all().order_by("-post_time"), "form": form}
     return render(request, 'twitclone/home.html', context)
@@ -28,7 +31,12 @@ def home(request):
 @login_required
 def profile(request, profile_name):
     if Profile.objects.filter(user__username=profile_name).exists():
-        context = { "name": profile_name, "my_posts": Post.objects.filter(poster__user__username=profile_name) }
+        profile = Profile.objects.get(user__username=profile_name)
+        if request.method == "POST":
+            if request.POST["follow"] == "follow":
+                request.user.profile_user.follows.add(profile)
+        
+        context = { "name": request.user, "my_posts": Post.objects.filter(poster__user__username=profile_name).order_by("-post_time"), "profile": profile }
         return render(request, 'twitclone/profile.html', context)
     else:
         raise Http404()

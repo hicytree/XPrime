@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import time
 
 # Create your models here.
 class Profile(models.Model):
@@ -20,8 +19,6 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         new_profile = Profile(user=instance)
         new_profile.save()
-        new_profile.follows.add(instance.profile.id)
-        new_profile.save()
 
 class Post(models.Model):
     post = models.CharField(max_length=300)
@@ -33,6 +30,7 @@ class Post(models.Model):
 
     def __str__(self):
         return (
+            f"{self.id} "
             f"{self.poster} "
             f"({self.post_time:%I:%M %p %m-%d-%Y})"
         )

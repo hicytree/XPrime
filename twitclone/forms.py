@@ -12,6 +12,7 @@ class PostCreateForm(forms.ModelForm):
                 "required": "True"
             }
         ),
+        required=False,
         label=""
     )
 
