@@ -23,7 +23,11 @@ def home(request):
                 messages.success(request, ("Your scream has been heard!"))
                 return redirect("home")
         if "like" in request.POST:
-            print(request.POST)
+            post_id = request.POST["like"].split(" ")[0]
+            post_item = Post.objects.get(id=int(post_id))
+            liker = Profile.objects.get(user__username=request.user.profile_user)
+            post_item.likes.add(liker)
+            post_item.save()
 
     context = { "name": request.user, "posts": Post.objects.all().order_by("-post_time"), "form": form}
     return render(request, 'twitclone/home.html', context)
