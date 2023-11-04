@@ -29,14 +29,24 @@
     </div>
     <div class="mt-4">
         {% for post in my_posts %}
+        <form id="delete_post_form" action="" method="POST">    
+            {% csrf_token %}
             <div class="card " style="width: 30rem;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ post.post }}</li>
+                    <li class="list-group-item">{{ post.post }} 
+                        <button type="submit" class="btn-close btn-sm float-end" name="delete_post" value="{{ post }}"></button>
+                    </li>
                 </ul>
                 <div class="card-footer">
                     {{ post.poster }} ({{ post.post_time|date:'g:i a m-d-Y' }})
+                    {% if post.likes.count == 1 %}
+                        <text class="float-end pr-3">1 echo
+                    {% else %}
+                        <text class="float-end">{{ post.likes.count }} echoes
+                    {% endif %}
                 </div>
             </div>
+        </form>
             <br/>
         {% endfor %}
     </div>
